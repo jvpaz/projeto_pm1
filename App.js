@@ -6,27 +6,43 @@ import { HomeScreen } from './screens/HomeScreen';
 import { PerfilScreen} from './screens/PerfilScreen';
 import { CarrinhoScreen } from './screens/CarrinhoScreen';
 import { MapScreen } from './screens/MapScreen';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Stacks = createStackNavigator();
 
 function Tabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} options={{tabBarIcon: ({ color, size }) => (
+    <Tab.Navigator screenOptions={{
+      tabBarActiveTintColor: 'black', 
+    tabBarInactiveTintColor: 'white',
+    tabBarActiveBackgroundColor: 'white',
+    tabBarInactiveBackgroundColor: 'black',
+    animation: 'shift'}}>
+      <Tab.Screen name="HomeTabs" component={HomeScreen} options={{tabBarIcon: ({ color, size }) => (
   <Ionicons name="home" size={size} color={color} />), headerShown: false}}/>
-      <Tab.Screen name="Carrinho" component={CarrinhoScreen} options={{tabBarIcon:({color, size}) => (
+      <Tab.Screen name="CarrinhoTabs" component={StacksNavigator} options={{tabBarIcon:({color, size}) => (
   <Ionicons name="cart" size={size} color={color}/>
       ), headerShown: false}}/>
-      <Tab.Screen name="Mapa" component={MapScreen} options={{headerShown: false}}/>
     </Tab.Navigator>
   );
+}
+
+function StacksNavigator()
+{
+    return (
+      <Stacks.Navigator>
+        <Stacks.Screen name="CarrinhoStack" component={CarrinhoScreen} options={{headerShown: false}}/>
+        <Stacks.Screen name="Mapa" component={MapScreen} options={{headerShown: false}}/>
+      </Stacks.Navigator>
+    )
 }
 
 function Drawers() {
   return (
     <Drawer.Navigator>
-      <Drawer.Screen name="HomeTabs" component={Tabs} options={{title:"Home", drawerIcon: ({color,size}) =>(<Ionicons name="home" size={size}  color={color}/>)}}/>
+      <Drawer.Screen name="HomeDrawer" component={Tabs} options={{title:"Home", drawerIcon: ({color,size}) =>(<Ionicons name="home" size={size}  color={color}/>)}}/>
       <Drawer.Screen name="Profile" component={PerfilScreen} options={{drawerIcon: ({color,size}) =>(<Ionicons name="person" size={size}  color={color} />)}}/>
     </Drawer.Navigator>
   );

@@ -10,7 +10,7 @@ export function CarrinhoScreen() {
   return (
     <View style={styles.container}>
       <Text>Carrinho</Text>
-      <Button onPress={() => navigation.navigate('Mapa')}>
+      <Button onPress={() => navigation.navigate("Mapa")}>
         Ir para Mapa
         </Button>
     </View>
