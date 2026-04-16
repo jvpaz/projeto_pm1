@@ -7,6 +7,7 @@ import { PerfilScreen} from './screens/PerfilScreen';
 import { CarrinhoScreen } from './screens/CarrinhoScreen';
 import { MapScreen } from './screens/MapScreen';
 import { createStackNavigator } from '@react-navigation/stack';
+import { SpeakerProvider } from "./utils/SpeakerContext";
 
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,10 +20,14 @@ function Tabs() {
     tabBarInactiveTintColor: 'white',
     tabBarActiveBackgroundColor: 'white',
     tabBarInactiveBackgroundColor: 'black',
-    animation: 'shift'}}>
-      <Tab.Screen name="HomeTabs" component={HomeScreen} options={{tabBarIcon: ({ color, size }) => (
+    animation: 'shift',
+     tabBarIconStyle: {
+      marginTop: 5,
+    },
+    }}>
+      <Tab.Screen name="HomeTabs" component={HomeScreen} options={{title: "", tabBarIcon: ({ color, size }) => (
   <Ionicons name="home" size={size} color={color} />), headerShown: false}}/>
-      <Tab.Screen name="CarrinhoTabs" component={StacksNavigator} options={{tabBarIcon:({color, size}) => (
+      <Tab.Screen name="CarrinhoTabs" component={StacksNavigator} options={{ title: "", tabBarIcon:({color, size}) => (
   <Ionicons name="cart" size={size} color={color}/>
       ), headerShown: false}}/>
     </Tab.Navigator>
@@ -41,9 +46,15 @@ function StacksNavigator()
 
 function Drawers() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="HomeDrawer" component={Tabs} options={{title:"Home", drawerIcon: ({color,size}) =>(<Ionicons name="home" size={size}  color={color}/>)}}/>
-      <Drawer.Screen name="Profile" component={PerfilScreen} options={{drawerIcon: ({color,size}) =>(<Ionicons name="person" size={size}  color={color} />)}}/>
+    <Drawer.Navigator screenOptions={{drawerActiveBackgroundColor: "black",
+      drawerActiveTintColor: 'white',
+      headerStyle:{
+        backgroundColor: 'black',
+      },
+      headerTintColor: 'white'
+    }}>
+      <Drawer.Screen name="HomeDrawer" component={Tabs} options={{title:"Inicio", drawerIcon: ({color,size}) =>(<Ionicons name="home" size={size}  color={color}/>)}}/>
+      <Drawer.Screen name="Profile" component={PerfilScreen} options={{title: "Perfil", drawerIcon: ({color,size}) =>(<Ionicons name="person" size={size}  color={color} />)}}/>
     </Drawer.Navigator>
   );
 }
@@ -51,9 +62,11 @@ function Drawers() {
 
 export default function App() {
   return (
+    <SpeakerProvider>
     <NavigationContainer>
       <Drawers/>
     </NavigationContainer>
+    </SpeakerProvider>
   );
 }
 

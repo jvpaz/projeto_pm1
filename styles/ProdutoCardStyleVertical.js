@@ -1,20 +1,17 @@
 import { StyleSheet } from "react-native";
-import { Dimensions } from 'react-native';
-
-const { height, width } = Dimensions.get('window');
 
 export const ProdutoCardStyleVertical = StyleSheet.create({
   container: {
     marginVertical: 1,
     backgroundColor: 'white',
     borderRadius: 3,
-    padding: 10,
+    padding: 10
   },
 
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '100%',
+    width: '100%'
   },
 
   image: {
@@ -24,8 +21,8 @@ export const ProdutoCardStyleVertical = StyleSheet.create({
   },
 
   info: {
-    flex: 2,
     marginLeft: 10,
+    justifyContent: 'space-between'
   },
 
   nome: {
@@ -35,26 +32,27 @@ export const ProdutoCardStyleVertical = StyleSheet.create({
 
   descricao: {
     fontSize: 12,
+    width: 280,
     marginTop: 4,
   },
 
   precoCard: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
 
   preco: {
-    flex: 2,
     fontSize: 14,
     textAlign: 'center',
   },
 
   botaoCart: {
     backgroundColor: "green",
-    flex: 1,
     alignItems: 'center',
     padding: 8,
+    paddingHorizontal: 40,
+    marginRight: 40,
     borderRadius: 3,
     marginTop: 5,
   }
