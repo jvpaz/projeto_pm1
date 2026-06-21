@@ -15,14 +15,10 @@ export function CarrinhoScreen({ navigation }) {
   const [itens, setItens] = useState([]);
   const [resumo, setResumo] = useState({ total: 0, total_itens: 0 });
 
-  const USUARIO_ID = usuario.id;
-
-
-
 useFocusEffect(
   useCallback(() => {
-    setItens(listarCarrinho(USUARIO_ID));
-    setResumo(resumoCarrinho(USUARIO_ID));
+    setItens(listarCarrinho(usuario.id));
+    setResumo(resumoCarrinho(usuario.id));
   }, [])
 );
 
