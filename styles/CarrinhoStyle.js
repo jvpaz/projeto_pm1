@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 export const CarrinhoStyle = StyleSheet.create({
     image: {
         opacity: 0.8,
-        width: '100%',
+        width: 500,
         height: 200,
         marginBottom: 10,
         borderRadius: 10

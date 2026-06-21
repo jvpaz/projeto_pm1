@@ -4,10 +4,15 @@ import { PerfilStyle } from "../styles/PerfilStyle";
 import { Ionicons } from '@expo/vector-icons';
 import { SpeakerContext, SpeakerProvider } from '../utils/SpeakerContext';
 import { useContext } from 'react';
+import {Autentica } from '../utils/AutenticaContext';
 
-export function PerfilScreen() {
+export function PerfilScreen({navigation}) {
 
    const { falar, voiceEnabled, toggleVoice } = useContext(SpeakerContext);
+   const {usuario, setUsuario} = Autentica();
+
+   if(!usuario) //Previne tentar ler o usuario após sair da conta.
+    return null;
 
   return ( 
     <View style={styles.container}> 
@@ -32,24 +37,23 @@ export function PerfilScreen() {
           onPress={() => falar('Perfil do usuário. Usuário temporário. Email temporario arroba email ponto com')}
           style={PerfilStyle.perfilCard}
         >
-          <Image
-            source={{
-              uri: 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
-            }}
-            style={PerfilStyle.image}
-          />
+           <Image
+    source={{
+      uri: usuario.foto ?? 'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'
+    }}
+    style={PerfilStyle.image}
+  />
 
           <View style={PerfilStyle.perfilInfo}>
-            <Text style={PerfilStyle.perfilInfoText}>Usuário Temporário</Text>
-            <Text style={PerfilStyle.perfilInfoText}>temporario@email.com</Text>
-            <Text style={PerfilStyle.perfilInfoText}>53 99999-9999</Text>
+            <Text style={PerfilStyle.perfilInfoText}>{usuario.nome}</Text>
+            <Text style={PerfilStyle.perfilInfoText}>{usuario.email}</Text>
           </View>
         </Pressable>
 
         <View style={PerfilStyle.perfilBotoes}>
 
           <Pressable
-            onPress={() => falar('Editar perfil')}
+            onPress={() => navigation.navigate('EditarStack')}
             style={({ pressed }) => [
               PerfilStyle.button, pressed && styles.botaoPressionado
             ]}
@@ -97,6 +101,19 @@ export function PerfilScreen() {
             <Ionicons name="settings" size={25}/>
             <Text style={PerfilStyle.buttonText}>Privacidade</Text>
           </Pressable>
+
+          <Pressable onPress={() => {
+    
+    navigation.replace('Login');
+    setUsuario(null);
+  }}
+  style={({ pressed }) => [
+    PerfilStyle.button, pressed && styles.botaoPressionado
+  ]}
+>
+  <Ionicons name="log-out" size={25} color="red" />
+  <Text style={[PerfilStyle.buttonText, { color: 'red' }]}>Sair da conta</Text>
+</Pressable>
 
         </View>
       </View>
