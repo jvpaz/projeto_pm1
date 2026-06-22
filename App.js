@@ -56,7 +56,6 @@ function StacksNavigator() {
     <Stacks.Navigator>
       <Stacks.Screen name="CarrinhoStack" component={CarrinhoScreen} options={{ headerShown: false }} />
       <Stacks.Screen name="Mapa" component={MapScreen} options={{ headerShown: false }} />
-      <Stacks.Screen name="EditarStack" component={EditarScreen} options={{headerShown: false}} />
     </Stacks.Navigator>
   );
 }
