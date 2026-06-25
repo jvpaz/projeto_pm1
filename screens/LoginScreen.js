@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
   View, Text, TextInput, Pressable, Alert, KeyboardAvoidingView,
-  Platform, ScrollView,
+  Platform, ScrollView, Image,
 } from 'react-native';
 import { buscarUsuarioPorEmail } from '../database/db';
 import { AutenticaStyle } from '../styles/AutenticaStyle';
@@ -9,14 +9,14 @@ import { Autentica } from '../utils/AutenticaContext';
 
 export function LoginScreen({ navigation }) {
   const [form, setForm] = useState({ email: '', senha: '' });
-  const {setUsuario} = Autentica();
+  const { setUsuario } = Autentica();
   const [erros, setErros] = useState({});
 
   function validar() {
     const novosErros = {};
     if (!form.email.includes('@'))
-       novosErros.email = 'E-mail inválido';
-    if (!form.senha)               
+      novosErros.email = 'E-mail inválido';
+    if (!form.senha)
       novosErros.senha = 'Senha obrigatória';
     setErros(novosErros);
     return Object.keys(novosErros).length === 0;
@@ -32,15 +32,22 @@ export function LoginScreen({ navigation }) {
     }
 
     setUsuario(usuario);
-
     navigation.replace('App');
   }
 
   return (
-    <KeyboardAvoidingView
-      style={AutenticaStyle.flex}
-    >
-      <ScrollView contentContainerStyle={AutenticaStyle.container} keyboardShouldPersistTaps="handled">
+    <KeyboardAvoidingView style={AutenticaStyle.flex}>
+      <ScrollView
+        contentContainerStyle={AutenticaStyle.container}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={{ alignItems: 'center', marginBottom: 8 }}>
+          <Image
+            source={require('../assets/eMovel_logo.png')}
+            style={{ width: 80, height: 80, resizeMode: 'contain' }}
+          />
+        </View>
+
         <Text style={AutenticaStyle.titulo}>Bem-vindo</Text>
         <Text style={AutenticaStyle.subtitulo}>Entre na sua conta</Text>
 
@@ -73,10 +80,12 @@ export function LoginScreen({ navigation }) {
         </Pressable>
 
         <Pressable onPress={() => navigation.navigate('Cadastro')}>
-          <Text style={AutenticaStyle.link}>Não tem conta? <Text style={AutenticaStyle.linkDestaque}>Cadastre-se</Text></Text>
+          <Text style={AutenticaStyle.link}>
+            Não tem conta?{' '}
+            <Text style={AutenticaStyle.linkDestaque}>Cadastre-se</Text>
+          </Text>
         </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>
   );
 }
-
